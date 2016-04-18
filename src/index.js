@@ -1,4 +1,5 @@
 const debug = require('debug')('meshblu-netscaler-connector:index')
+
 import {EventEmitter2} from 'eventemitter2'
 
 export default class NetScalerConnector extends EventEmitter2 {
@@ -8,8 +9,8 @@ export default class NetScalerConnector extends EventEmitter2 {
   onConfig (deviceConfig){
 
   }
-  
-  setOptions(deviceOptions){
+
+  setOptions(options={}){
 
   }
 
