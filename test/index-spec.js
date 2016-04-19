@@ -30,7 +30,6 @@ describe('NetScalerConnector', ()=>{
       it('Should emit an error if the config does not match schema',(done)=>{
         expect(configErrors).to.not.be.null;
         expect(configErrors.length).to.equal(2);
-        console.log("Config Errors", configErrors)
         done()
       });
 
