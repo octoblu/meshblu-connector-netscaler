@@ -1,9 +1,29 @@
-import package from '../package.json';
+import packageJSON from '../package.json';
 const currentVersion = packageJSON.version;
-const MessageSchema = {
+const messageSchemas = [
+  {
 
-};
-const OptionsSchema = {
+  }
+];
 
+const configureSchema = {
+	"title": "Netscaler User Account",
+	"type": "object",
+	"properties": {
+		"username": {
+			"type": "string",
+      "minLength": 1
+		},
+		"password": {
+			"type": "string",
+      "minLength": 1
+		}
+	},
+	"required": ["username", "password"]
 };
-export {MESSAGE_SCHEMA as MessageSchema, OPTIONS_SCHEMA as OptionsSchema, CurrentVersion as currentVersion};
+
+export const Schemas = {
+ messageSchemas,
+  version: "1.0.0",
+  configureSchema
+};

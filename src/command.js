@@ -1,83 +1,58 @@
-const debug = require('debug')('meshblu-netscaler-connector')
-const _ = require('lodash')
-class Command {
-  constructor ({meshbluConfig, connectorPath}){
-
-  }
-
-  run(){
-
-  }
-}
-
-
-// debug         = require('debug')('meshblu-connector-runner:runner')
-
 // _             = require 'lodash'
-// meshblu       = require 'meshblu'
+// Connector     = require './connector'
+// MeshbluConfig = require 'meshblu-config'
+// meshbluConfig = new MeshbluConfig {}
 //
-// class Runner
-//   constructor: ({@meshbluConfig, connectorPath}) ->
-//     @Connector = require connectorPath
-//     @stopped = false
+// connector = new Connector meshbluConfig.toJSON()
 //
-//   boot: (device) =>
-//     debug 'booting up connector', uuid: device.uuid
-//     @connector = new @Connector()
+// connector.on 'error', (error) ->
+//   return console.error 'an unknown error occured' unless error?
+//   return console.error error if _.isPlainObject error
+//   console.error error.toString()
+//   console.error error.stack if error?.stack?
 //
-//     @connector.on 'message', (message) =>
-//       debug 'sending message', message
-//       @conn.emit 'message', message
+// connector.run()
+// class Command
+//   constructor: ->
+//     @serverOptions =
+//       cwcOptions:     @_buildCwcOptions()
+//       port:           process.env.PORT || 80
+//       disableLogging: process.env.DISABLE_LOGGING == "true"
 //
-//     @connector.on 'update', (properties) =>
-//       debug 'sending update', properties
-//       {uuid, token} = @meshbluConfig
-//       properties = _.extend {uuid, token}, properties
-//       @conn.emit 'update', properties
-//
-//     @connector.start device
-//
-//     @conn.on 'message', (message) =>
-//       debug 'on message', message
-//       @connector.onMessage message
-//
-//     @conn.on 'config', (device) =>
-//       debug 'on config'
-//       @closeIfNeeded device, =>
-//         @connector.onConfig device
-//
-//   close: =>
-//     debug 'closing'
-//     return unless @connector?
-//     @connector.close =>
-//       debug 'closed'
-//       @connector = null
-//
-//   closeIfNeeded: (device, callback) =>
-//     debug 'close if needed', device.stopped, @stopped
-//     return callback() if device.stopped == @stopped
-//     @stopped = false unless device.stopped?
-//     @stopped = device.stopped if device.stopped?
-//     debug 'is stopped', @stopped
-//     return callback() unless @stopped
-//     @close()
+//   panic: (error) =>
+//     console.error error.stack
+//     process.exit 1
 //
 //   run: =>
-//     debug 'running...'
-//     @conn = meshblu.createConnection @meshbluConfig
 //
-//     @conn.once 'ready', =>
-//       debug 'on ready'
-//       @whoami (error, device) =>
-//         @boot device
+//     server = new Server @serverOptions
+//     server.run (error) =>
+//       return @panic error if error?
 //
-//     @conn.on 'notReady', (error) =>
-//       console.error 'Meshblu fired notReady', error
+//       {address,port} = server.address()
 //
-//   whoami: (callback) =>
-//     debug 'whoami'
-//     @conn.whoami {}, (device) =>
-//       @closeIfNeeded device, =>
-//         callback null, device
+//     process.on 'SIGTERM', =>
+//       console.log 'SIGTERM caught, exiting'
+//       server.stop =>
+//         process.exit 0
 //
-// module.exports = Runner
+//   _buildCwcOptions: =>
+//     return {
+//       staging: @_getCwcEnvironment 'staging'
+//       production: @_getCwcEnvironment 'production'
+//     }
+//
+//   _getCwcEnvironment: (environmentName) =>
+//     environmentName = environmentName.toUpperCase()
+//     environment =
+//       authenticatorUrl: process.env["#{environmentName}_AUTHENTICATOR_URL"]
+//       hostname: process.env["#{environmentName}_HOSTNAME"]
+//       privateKey: process.env["#{environmentName}_PRIVATE_KEY"]
+//       serviceName: process.env["#{environmentName}_SERVICE_NAME"]
+//       url: process.env["#{environmentName}_URL"]
+//
+//     _.each environment, (value, key) =>
+//       return @panic new Error("#{key} for cwc #{environmentName} is not defined") if _.isEmpty value
+//
+// command = new Command()
+// command.run()
