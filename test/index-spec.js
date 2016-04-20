@@ -29,7 +29,7 @@ describe('NetScalerConnector', ()=>{
       })
       it('Should emit an error if the config does not match schema',(done)=>{
         expect(configErrors).to.not.be.null;
-        expect(configErrors.length).to.equal(2);
+        expect(configErrors.length).to.equal(3);
         done()
       });
 
@@ -37,18 +37,23 @@ describe('NetScalerConnector', ()=>{
     context('when given valid device config settings',()=>{
       let deviceConfig = {
         "username": "hello",
-        "password": "world"
+        "password": "world",
+        "hostAddress": "10.1.0.1"
       }
-      beforeEach(()=>{
+      beforeEach((done)=>{
         sut.onConfig(deviceConfig)
+        done()
       })
-      it('should set the username and password for the plugin', ()=>{
-        expect(sut.username).to.equal("hello")
-        expect(sut.password).to.equal("world")
+      it('should set the username, password and server for the plugin', (done)=>{
+
+        expect(sut.getUsername()).to.equal("hello")
+        expect(sut.getPassword()).to.equal("world")
+        expect(sut.getHostAddress()).to.equal("10.1.0.1")
+        done()
       })
     })
   })
-  xdescribe('->onMessage', ()=>{
+  describe('->onMessage', ()=>{
     context('when given a valid message endpoint', ()=>{
 
     })

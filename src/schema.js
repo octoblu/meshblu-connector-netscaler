@@ -7,7 +7,7 @@ const messageSchemas = [
 ];
 
 const configureSchema = {
-	"title": "Netscaler User Account",
+	"title": "Netscaler Info",
 	"type": "object",
 	"properties": {
 		"username": {
@@ -17,9 +17,13 @@ const configureSchema = {
 		"password": {
 			"type": "string",
       "minLength": 1
-		}
+		},
+    "hostAddress": {
+      "type": "string",
+      "minLength": 1
+    }
 	},
-	"required": ["username", "password"]
+	"required": ["username", "password", "hostAddress"]
 };
 
 export const Schemas = {
