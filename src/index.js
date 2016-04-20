@@ -8,12 +8,12 @@ import {EventEmitter2} from 'eventemitter2'
 class NetScalerConnector extends EventEmitter2 {
 
   constructor (){
-    super({wildcard: true});
-    this.validator = new Validator();
-    this.username;
-    this.password;
-    this.hostAddress;
-    return this;
+    super({wildcard: true})
+    this.validator = new Validator()
+    this.username
+    this.password
+    this.hostAddress
+    return this
   }
 
   authenticate (callback=()=>{}){
