@@ -57,7 +57,11 @@ describe('NetScalerConnector', ()=>{
 
   describe('->onMessage', ()=>{
     context('When given a message that matches a Netscaler endpoint', ()=>{
-
+      let message = {
+        "name": "NewResourceThing",
+        "serviceType": "http",
+        "path": "/nitro/v1/config/lbvserver/"
+      }
     })
 
     context('When given a message that doesn\'t match a Netscaler api endpoint', ()=>{

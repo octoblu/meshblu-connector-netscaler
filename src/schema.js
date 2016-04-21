@@ -3,19 +3,18 @@ const currentVersion = packageJSON.version;
 const messageSchemas = [
   {
     "id": "/CreateResource",
+    "path": "/nitro/v1/config/:resourceType",
     "title": "Create Resource",
     "type": "object",
     "properties": {
-      "lbvserver": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "serviceType": {
-            "type": "string"
-          }
-        }
+      "resourceType": {
+        "type": "string",
+        "enum": [
+          "libvserver"
+        ]
+      },
+      "payload": {
+        "type": "object"
       }
     }
   }
@@ -42,7 +41,7 @@ const configureSchema = {
 };
 
 export const Schemas = {
- messageSchemas,
+  messageSchemas,
   version: "1.0.0",
   configureSchema
 };

@@ -20,6 +20,12 @@ class NetScalerConnector extends EventEmitter2 {
 
   }
 
+  // validatePath (path){
+  //   _.find(Schemas.messageSchemas, function(schema) {
+  //      return schema.properties.path.default == path;
+  //    });
+  // }
+
 
   getUsername(){
     return this.username
