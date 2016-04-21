@@ -2,7 +2,22 @@ import packageJSON from '../package.json';
 const currentVersion = packageJSON.version;
 const messageSchemas = [
   {
-
+    "id": "/CreateResource",
+    "title": "Create Resource",
+    "type": "object",
+    "properties": {
+      "lbvserver": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "serviceType": {
+            "type": "string"
+          }
+        }
+      }
+    }
   }
 ];
 

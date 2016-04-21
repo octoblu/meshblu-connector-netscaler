@@ -54,20 +54,9 @@ describe('NetScalerConnector', ()=>{
       })
     })
   })
-  xdescribe('->authenticate', ()=>{
-    context('When called and the config details (username, password and hostaddress) have been set', ()=>{
-      beforeEach(()=>{
-        
-      })
 
-    })
-
-    context('When called and the config details (username, password and hostaddress) have been set', ()=>{
-
-    })
-  })
-  xdescribe('->onMessage', ()=>{
-    context('When given a message for a valid NetScaler api endpoint', ()=>{
+  describe('->onMessage', ()=>{
+    context('When given a message that matches a Netscaler endpoint', ()=>{
 
     })
 
