@@ -1,5 +1,6 @@
 import {Plugin} from '../src/index'
 import {EventEmitter2} from 'eventemitter2'
+import shmock from 'shmock'
 
 
 
@@ -53,12 +54,24 @@ describe('NetScalerConnector', ()=>{
       })
     })
   })
-  describe('->onMessage', ()=>{
-    context('when given a valid message endpoint', ()=>{
+  xdescribe('->authenticate', ()=>{
+    context('When called and the config details (username, password and hostaddress) have been set', ()=>{
+      beforeEach(()=>{
+        
+      })
 
     })
 
-    context('when given an invalid message endpoint that isn\'t defined', ()=>{
+    context('When called and the config details (username, password and hostaddress) have been set', ()=>{
+
+    })
+  })
+  xdescribe('->onMessage', ()=>{
+    context('When given a message for a valid NetScaler api endpoint', ()=>{
+
+    })
+
+    context('When given a message that doesn\'t match a Netscaler api endpoint', ()=>{
 
     })
   })
