@@ -7,10 +7,12 @@ import shmock from 'shmock'
 describe('NetScalerConnector', ()=>{
   let sut;
   let eventEmmiter;
+  let netScalerShmock;
 
   beforeEach( ()=>{
     sut = new Plugin()
     eventEmmiter = new EventEmitter2({wildcard: true})
+    netScalerShmock = new shmock(0xDEAD)
   })
   it('should exist', ()=>{
     expect(sut).to.exist
@@ -55,13 +57,47 @@ describe('NetScalerConnector', ()=>{
     })
   })
 
-  describe('->onMessage', ()=>{
+  xdescribe('->onMessage', ()=>{
     context('When given a message that matches a Netscaler endpoint', ()=>{
       let message = {
-        "name": "NewResourceThing",
-        "serviceType": "http",
-        "path": "/nitro/v1/config/lbvserver/"
-      }
+        metadata: {
+          jobType: "/CreateResource"
+        },
+        data: {
+          "lbvserver": {
+            "name": "hello",
+            "serviceType": "world"
+          }
+        }
+      };
+      let deviceConfig = {
+        "username": "hello",
+        "password": "world",
+        "hostAddress": `localhost:${0xDEAD}`
+      };
+      let nsConfigResourceHandler;
+
+      beforeEach(()=>{
+    //     @cwcStagingServerMock
+    //  .post "/#{bodyOptions.customerId}/sessionotp"
+    //  .set "Authorization", "CWSAuth service=#{cwcAuthServiceKey}"
+    //  .send {oneTimePassword: "#{bodyOptions.otp}"}
+    //  .reply 200, {sessionId: @sessionId, bearerToken: @bearerToken}
+        nsConfigResourceHandler = netScalerShmock
+        .post("/nitro/v1/config/lbvserver")
+        .set("X-NITRO-USER", "hello")
+        .set("X-NITRO-PASS", "world")
+        .set("Content-Type", `application/vnd.com.citrix.netscaler.lbvserver+json`)
+        .send({"lbvserver":{"name": "servername", "serviceType": "world"}})
+        .reply(200)
+
+        sut.onConfig(deviceConfig);
+        sut.onMessage(message);
+      });
+      it('should validate the message against the message schema and make a request to Netscaler'()=>{
+        expect(nsConfigResourceHandler.isDone).to.be.true
+      })
+
     })
 
     context('When given a message that doesn\'t match a Netscaler api endpoint', ()=>{
