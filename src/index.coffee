@@ -19,13 +19,13 @@ class NetscalerConnector extends EventEmitter
 
   onMessage: (message) =>
     return unless message?
-    { topic, devices, fromUuid } = message
+    {topic, devices, fromUuid} = message
     return if '*' in devices
     return if fromUuid == @uuid
     debug 'onMessage', { topic }
 
   start: (device) =>
-    { @uuid } = device
+    {@uuid} = device
     debug 'started', @uuid
 
 module.exports = NetscalerConnector
