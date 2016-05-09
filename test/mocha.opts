@@ -1,5 +1,5 @@
 --bail
 --recursive
---compilers js:babel-core/register
---require babel-core/register
---require test/test_helper.js
+--compilers coffee:coffee-script
+--require coffee-script/register
+--require test/test_helper.coffee

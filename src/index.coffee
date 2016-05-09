@@ -1,17 +1,31 @@
-{EventEmitter2} = require 'eventemitter2'
-{Validator}     = require 'jsonschema'
-_               = require 'lodash'
-{Schemas}       = require './schema'
+{EventEmitter} = require 'events'
 
-debug = require('debug')('meshblu-netscaler-connector:index')
+debug = require('debug')('meshblu-connector-netscaler:index')
 
-class NetScalerConnector extends EventEmitter2
+class NetscalerConnector extends EventEmitter
   constructor: ->
     super wildcard: true
 
-  onConfig: ({@username, @password, @hostAddress}) =>
+  close: (callback) =>
+    debug 'on close'
+    callback()
+
+  isOnline: (callback) =>
+    callback null, running: true
+
+  onConfig: (config) =>
+    return unless config?
+    {@username, @password, @hostAddress} = config
 
   onMessage: (message) =>
-    debug 'onMessage', message
+    return unless message?
+    { topic, devices, fromUuid } = message
+    return if '*' in devices
+    return if fromUuid == @uuid
+    debug 'onMessage', { topic }
 
-module.exports = NetScalerConnector
+  start: (device) =>
+    { @uuid } = device
+    debug 'started', @uuid
+
+module.exports = NetscalerConnector

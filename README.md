@@ -1,19 +1,55 @@
-# meshblu-netscaler-connector
-A mesblu-connector  that allows you to connect to a netscaler instance and possibly be managed in Gateblu
+# meshblu-connector-netscaler
 
-##Prerequisites
-In order to use this connector you will need to have the following
-- A running netscaler gateway
-- An Octoblu account - you can sign up for one here
-- Node.js installed on your machine
+[![Dependency status](http://img.shields.io/david/octoblu/meshblu-connector-netscaler.svg?style=flat)](https://david-dm.org/octoblu/meshblu-connector-netscaler)
+[![devDependency Status](http://img.shields.io/david/dev/octoblu/meshblu-connector-netscaler.svg?style=flat)](https://david-dm.org/octoblu/meshblu-connector-netscaler#info=devDependencies)
+[![Build Status](http://img.shields.io/travis/octoblu/meshblu-connector-netscaler.svg?style=flat&branch=master)](https://travis-ci.org/octoblu/meshblu-connector-netscaler)
 
-##Setup Instructions
-### Build from Source
-1. Clone the git repository
-2. Use meshblu-util register to register a new meshblu device
-3. Claim the device in Octoblu with the UUID and Token from the meshblu.json file in step 2.
+[![NPM](https://nodei.co/npm/meshblu-connector-netscaler.svg?style=flat)](https://npmjs.org/package/meshblu-connector-netscaler)
 
-###Install and run from NPM
-1. Install the package from NPM
-2. Use meshblu-util register to register a new meshblu device
-3. Claim the device in Octoblu with the UUID and Token from the meshblu.json file in step 2. 
+## Installing
+
+```bash
+$ npm install meshblu-connector-netscaler
+```
+
+### Usage
+
+```bash
+$ npm start
+```
+
+or with debug
+
+```bash
+$ env DEBUG='meshblu-connector-netscaler*' npm start
+```
+
+### Releasing
+
+```bash
+$ npm run package
+```
+
+## License
+
+The MIT License (MIT)
+
+Copyright 2016 Octoblu Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.

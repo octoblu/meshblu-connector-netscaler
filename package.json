@@ -1,14 +1,15 @@
 {
-  "name": "meshblu-netscaler-connector",
+  "name": "meshblu-connector-netscaler",
   "version": "1.0.0",
   "description": "A mesblu-connector  that allows you to connect to a netscaler instance and possibly be managed in Gateblu",
   "main": "index.js",
   "scripts": {
     "compile": "babel --presets es2015 -d lib/ src/",
     "prepublish": "npm run compile",
-    "start": "./lib/command.js",
+    "start": "meshblu-connector-runner",
     "test": "mocha",
-    "test:watch": "mocha -w"
+    "test:watch": "mocha -w",
+    "package": "meshblu-connector-packager"
   },
   "repository": {
     "type": "git",
@@ -21,22 +22,30 @@
   },
   "homepage": "https://github.com/octoblu/meshblu-netscaler-connector#readme",
   "devDependencies": {
-    "babel-cli": "^6.7.5",
-    "babel-polyfill": "^6.7.4",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-stage-1": "^6.5.0",
     "chai": "^3.5.0",
     "debug": "^2.2.0",
     "meshblu-connector-runner": "^2.0.0",
     "mocha": "^2.4.5",
     "shmock": "^0.8.1",
     "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0"
+    "sinon-chai": "^2.8.0",
+    "meshblu-connector-packager": "^12.0.0"
   },
   "dependencies": {
     "babel-polyfill": "^6.7.4",
-    "eventemitter2": "^1.0.0",
     "jsonschema": "^1.1.0",
-    "meshblu-connector-runner": "^2.0.0"
+    "meshblu-connector-runner": "^3.0.2"
+  },
+  "platformDependencies": {
+    "darwin": [],
+    "win32": [],
+    "win64": [],
+    "linux": [],
+    "android": [],
+    "ios": []
+  },
+  "meshbluConnector": {
+    "githubSlug": "octoblu/meshblu-connector-netscaler",
+    "schemasUrl": "https://raw.githubusercontent.com/octoblu/meshblu-connector-netscaler/v1.0.0/schemas.json"
   }
 }
