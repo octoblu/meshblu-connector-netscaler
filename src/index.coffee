@@ -1,5 +1,6 @@
 cson           = require 'cson'
 {EventEmitter} = require 'events'
+http           = require 'http'
 _              = require 'lodash'
 path           = require 'path'
 debug = require('debug')('meshblu-connector-netscaler:index')
@@ -28,20 +29,15 @@ class NetscalerConnector extends EventEmitter
     return if '*' in devices
     return if fromUuid == @uuid
     return unless payload?.metadata?
-
-    console.log 'message', JSON.stringify message
+    return unless message?.metadata?.flow?
+    {fromNodeId} = message.metadata.flow
 
     job = new GetCountOfNetscalerResources({@options})
     job.do payload, (error, response) =>
-      
+      return @_replyWithError {fromUuid, fromNodeId, error} if error?
+
       {metadata,data} = response
-      @emit 'message', {
-        devices: [fromUuid]
-        payload:
-          from: message.metadata.flow.fromNodeId
-          metadata: metadata
-          data: data
-      }
+      @_replyWithResponse {fromUuid, fromNodeId, metadata, data}
 
   start: (device) =>
     {@uuid,octoblu} = device
@@ -55,5 +51,28 @@ class NetscalerConnector extends EventEmitter
       messageSchema:     MESSAGE_SCHEMA
       messageFormSchema: MESSAGE_FORM_SCHEMA
       octoblu:           octoblu
+
+  _replyWithError: ({fromUuid, fromNodeId, error}) =>
+    code = error.code ? 500
+
+    @emit 'message', {
+      devices: [fromUuid]
+      payload:
+        from: fromNodeId
+        metadata:
+          code: code
+          status: http.STATUS_CODES[code]
+          error:
+            message: error.message ? 'Unknown Error'
+    }
+
+  _replyWithResponse: ({fromUuid, fromNodeId, metadata, data}) =>
+    @emit 'message', {
+      devices: [fromUuid]
+      payload:
+        from: fromNodeId
+        metadata: metadata
+        data: data
+    }
 
 module.exports = NetscalerConnector

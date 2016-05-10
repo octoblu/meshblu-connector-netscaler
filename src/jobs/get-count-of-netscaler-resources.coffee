@@ -6,6 +6,7 @@ class GetCountOfNetscalerResources
   do: ({}, callback) =>
     options =
       baseUrl: @options.hostAddress
+      json: true
       headers:
         'X-NITRO-USER': @options.username
         'X-NITRO-PASS': @options.password
