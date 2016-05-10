@@ -3,8 +3,11 @@
     key: "metadata.jobType"
     type: "select"
     titleMap: [{
-      value: "GetCountOfNetscalerResources"
-      name:  "Get Count of Netscaler Resources"
+      value: "GetCountOfLoadBalancingVirtualServers"
+      name:  "Get Count of Load Balancing Virtual Servers"
+    }, {
+      value: "Add Load Balancing Virtual Server"
+      name:  "AddLoadBalancingVirtualServer"
     }]
   }
 ]

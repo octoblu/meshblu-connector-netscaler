@@ -4,7 +4,7 @@ http           = require 'http'
 _              = require 'lodash'
 path           = require 'path'
 debug = require('debug')('meshblu-connector-netscaler:index')
-GetCountOfNetscalerResources = require './jobs/get-count-of-netscaler-resources'
+GetCountOfLoadBalancingVirtualServers = require './jobs/get-count-of-load-balancing-virtual-servers'
 
 CONFIG_SCHEMA       = cson.requireFile path.join(__dirname, '../schemas/config.cson')
 MESSAGE_SCHEMA      = cson.requireFile path.join(__dirname, '../schemas/message.cson')
@@ -32,7 +32,7 @@ class NetscalerConnector extends EventEmitter
     return unless message?.metadata?.flow?
     {fromNodeId} = message.metadata.flow
 
-    job = new GetCountOfNetscalerResources({@options})
+    job = new GetCountOfLoadBalancingVirtualServers({@options})
     job.do payload, (error, response) =>
       return @_replyWithError {fromUuid, fromNodeId, error} if error?
 

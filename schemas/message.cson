@@ -10,5 +10,7 @@
         jobType:
           title: 'Action'
           type: 'string'
-          enum: ['GetCountOfNetscalerResources']
+          enum: ['GetCountOfLoadBalancingVirtualServers']
+    data:
+      type: 'object'
 }

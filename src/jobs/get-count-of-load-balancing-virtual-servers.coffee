@@ -1,6 +1,6 @@
 request = require 'request'
 
-class GetCountOfNetscalerResources
+class GetCountOfLoadBalancingVirtualServers
   constructor: ({@options}) ->
 
   do: ({}, callback) =>
@@ -19,4 +19,4 @@ class GetCountOfNetscalerResources
       callback null, data: body
 
 
-module.exports = GetCountOfNetscalerResources
+module.exports = GetCountOfLoadBalancingVirtualServers
