@@ -1,0 +1,10 @@
+[
+  {
+    key: "metadata.jobType"
+    type: "select"
+    titleMap: [{
+      value: "GetCountOfNetscalerResources"
+      name:  "Get Count of Netscaler Resources"
+    }]
+  }
+]

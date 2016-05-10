@@ -1,0 +1,14 @@
+{
+  type: 'object'
+  title: 'Job'
+  required: ['metadata']
+  properties:
+    metadata:
+      type: 'object'
+      required: ['jobType']
+      properties:
+        jobType:
+          title: 'Action'
+          type: 'string'
+          enum: ['GetCountOfNetscalerResources']
+}
