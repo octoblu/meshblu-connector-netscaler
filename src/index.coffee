@@ -1,16 +1,12 @@
-cson           = require 'cson'
 {EventEmitter} = require 'events'
+fs             = require 'fs'
 http           = require 'http'
 _              = require 'lodash'
 path           = require 'path'
 debug = require('debug')('meshblu-connector-netscaler:index')
-CreateServer = require './jobs/create-server'
-GetCountOfServers = require './jobs/get-count-of-servers'
-GetServers = require './jobs/get-servers'
 
-CONFIG_SCHEMA   = cson.requireFile path.join(__dirname, '../schemas/config.cson')
-MESSAGE_SCHEMAS = cson.requireFile path.join(__dirname, '../schemas/message.cson')
-FORM_SCHEMA     = cson.requireFile path.join(__dirname, '../schemas/form.cson')
+CONFIG_SCHEMA     = require '../schemas/config.cson'
+GetCountOfServers = require './jobs/get-count-of-servers'
 
 class NetscalerConnector extends EventEmitter
   constructor: ->
@@ -19,6 +15,15 @@ class NetscalerConnector extends EventEmitter
   close: (callback) =>
     debug 'on close'
     callback()
+
+  getJobs: =>
+    dirnames = fs.readdirSync path.join(__dirname, './jobs')
+    jobs = {}
+    _.each dirnames, (dirname) =>
+      key = _.upperFirst _.camelCase dirname
+      dir = path.join 'jobs', dirname
+      jobs[key] = require "./#{dir}"
+    return jobs
 
   isOnline: (callback) =>
     callback null, running: true
@@ -34,10 +39,10 @@ class NetscalerConnector extends EventEmitter
     return unless message?.metadata?.flow?
     {fromNodeId} = message.metadata.flow
 
-    job = @_getJob payload.metadata.jobType
+    job = @jobs[payload.metadata.jobType]
     return unless job?
 
-    job.do payload, (error, response) =>
+    job.action {@options}, payload, (error, response) =>
       return @_replyWithError {fromUuid, fromNodeId, error} if error?
 
       {metadata,data} = response
@@ -46,6 +51,7 @@ class NetscalerConnector extends EventEmitter
   start: (device) =>
     {@uuid,octoblu} = device
     debug 'started', @uuid
+    @jobs = @getJobs()
     octoblu ?= {}
     octoblu.flow ?= {}
     octoblu.flow.forwardMetadata = true
@@ -54,14 +60,39 @@ class NetscalerConnector extends EventEmitter
       optionsSchema: CONFIG_SCHEMA
       schemas:
         version: '1.0.0'
-        message: MESSAGE_SCHEMAS
-        form:    FORM_SCHEMA
-      octoblu:           octoblu
+        message: @_messageSchemaFromJobs @jobs
+        form:    @_formSchemaFromJobs @jobs
+      octoblu: octoblu
+
+  _formSchemaFromJobs: (jobs) =>
+    return {
+      message: _.mapValues jobs, 'form'
+    }
+
+  _generateMetadata: (jobType) =>
+    return {
+      type: 'object'
+      required: ['jobType']
+      properties:
+        jobType:
+          type: 'string'
+          enum: [jobType]
+          default: jobType
+    }
 
   _getJob: (jobType) =>
-    return new CreateServer {@options}      if jobType == 'CreateServer'
     return new GetCountOfServers {@options} if jobType == 'GetCountOfServers'
-    return new GetServers {@options}        if jobType == 'GetServers'
+    # return new CreateServer {@options}      if jobType == 'CreateServer'
+    # return new GetServers {@options}        if jobType == 'GetServers'
+
+  _messageSchemaFromJob: (job, key) =>
+    message = _.cloneDeep job.message
+    _.set message, 'formSchema.angular', "message.#{key}.angular"
+    _.set message, 'properties.metadata', @_generateMetadata(key)
+    return message
+
+  _messageSchemaFromJobs: (jobs) =>
+    _.mapValues jobs, @_messageSchemaFromJob
 
   _replyWithError: ({fromUuid, fromNodeId, error}) =>
     code = error.code ? 500
@@ -85,5 +116,6 @@ class NetscalerConnector extends EventEmitter
       metadata: metadata
       data: data
     }
+
 
 module.exports = NetscalerConnector

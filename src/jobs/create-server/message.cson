@@ -1,0 +1,17 @@
+{
+  type: 'object'
+  title: 'Create Server'
+  required: ['metadata', 'data']
+  properties:
+    data:
+      type: 'object'
+      required: ['name', 'ipAddress']
+      properties:
+        name:
+          type: 'string'
+          title: 'Name'
+        ipAddress:
+          type: 'string'
+          title: 'IP Adress'
+          description: 'IPv4 or IPv6 address of the server'
+}

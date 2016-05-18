@@ -26,5 +26,4 @@ class GetCountOfServers
           count: _.first(body.server).__count
       }
 
-
 module.exports = GetCountOfServers

@@ -1,4 +1,3 @@
-# _       = require 'lodash'
 request = require 'request'
 http    = require 'http'
 
