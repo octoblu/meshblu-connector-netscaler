@@ -4,11 +4,13 @@ http           = require 'http'
 _              = require 'lodash'
 path           = require 'path'
 debug = require('debug')('meshblu-connector-netscaler:index')
-GetCountOfLoadBalancingVirtualServers = require './jobs/get-count-of-load-balancing-virtual-servers'
+CreateServer = require './jobs/create-server'
+GetCountOfServers = require './jobs/get-count-of-servers'
+GetServers = require './jobs/get-servers'
 
-CONFIG_SCHEMA       = cson.requireFile path.join(__dirname, '../schemas/config.cson')
-MESSAGE_SCHEMA      = cson.requireFile path.join(__dirname, '../schemas/message.cson')
-MESSAGE_FORM_SCHEMA = cson.requireFile path.join(__dirname, '../schemas/message-form.cson')
+CONFIG_SCHEMA   = cson.requireFile path.join(__dirname, '../schemas/config.cson')
+MESSAGE_SCHEMAS = cson.requireFile path.join(__dirname, '../schemas/message.cson')
+FORM_SCHEMA     = cson.requireFile path.join(__dirname, '../schemas/form.cson')
 
 class NetscalerConnector extends EventEmitter
   constructor: ->
@@ -32,7 +34,9 @@ class NetscalerConnector extends EventEmitter
     return unless message?.metadata?.flow?
     {fromNodeId} = message.metadata.flow
 
-    job = new GetCountOfLoadBalancingVirtualServers({@options})
+    job = @_getJob payload.metadata.jobType
+    return unless job?
+
     job.do payload, (error, response) =>
       return @_replyWithError {fromUuid, fromNodeId, error} if error?
 
@@ -47,10 +51,17 @@ class NetscalerConnector extends EventEmitter
     octoblu.flow.forwardMetadata = true
 
     @emit 'update',
-      optionsSchema:     CONFIG_SCHEMA
-      messageSchema:     MESSAGE_SCHEMA
-      messageFormSchema: MESSAGE_FORM_SCHEMA
+      optionsSchema: CONFIG_SCHEMA
+      schemas:
+        version: '1.0.0'
+        message: MESSAGE_SCHEMAS
+        form:    FORM_SCHEMA
       octoblu:           octoblu
+
+  _getJob: (jobType) =>
+    return new CreateServer {@options}      if jobType == 'CreateServer'
+    return new GetCountOfServers {@options} if jobType == 'GetCountOfServers'
+    return new GetServers {@options}        if jobType == 'GetServers'
 
   _replyWithError: ({fromUuid, fromNodeId, error}) =>
     code = error.code ? 500
@@ -71,8 +82,8 @@ class NetscalerConnector extends EventEmitter
       devices: [fromUuid]
       payload:
         from: fromNodeId
-        metadata: metadata
-        data: data
+      metadata: metadata
+      data: data
     }
 
 module.exports = NetscalerConnector

@@ -1,16 +1,60 @@
 {
-  type: 'object'
-  title: 'Job'
-  required: ['metadata']
-  properties:
-    metadata:
-      type: 'object'
-      required: ['jobType']
-      properties:
-        jobType:
-          title: 'Action'
-          type: 'string'
-          enum: ['GetCountOfLoadBalancingVirtualServers']
-    data:
-      type: 'object'
+  CreateServer:
+    type: 'object'
+    title: 'Create Server'
+    formSchema:
+      angular:
+        'message.CreateServer.angular'
+    required: ['metadata', 'data']
+    properties:
+      metadata:
+        type: 'object'
+        required: ['jobType']
+        properties:
+          jobType:
+            type: 'string'
+            enum: ['CreateServer']
+            default: 'CreateServer'
+      data:
+        type: 'object'
+        required: ['name', 'ipAddress', 'domain']
+        properties:
+          name:
+            type: 'string'
+            title: 'Name'
+          ipAddress:
+            type: 'string'
+            title: 'IP Adress'
+            description: 'IPv4 or IPv6 address of the server'
+
+  GetCountOfServers:
+    type: 'object'
+    title: 'Get Count of Servers'
+    formSchema:
+      angular:
+        'message.GetCountOfServers.angular'
+    properties:
+      metadata:
+        type: 'object'
+        required: ['jobType']
+        properties:
+          jobType:
+            type: 'string'
+            enum: ['GetCountOfServers']
+            default: 'GetCountOfServers'
+  GetServers:
+    type: 'object'
+    title: 'Get Servers'
+    formSchema:
+      angular:
+        'message.GetServers.angular'
+    properties:
+      metadata:
+        type: 'object'
+        required: ['jobType']
+        properties:
+          jobType:
+            type: 'string'
+            enum: ['GetServers']
+            default: 'GetServers'
 }

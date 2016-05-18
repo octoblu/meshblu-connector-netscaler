@@ -1,0 +1,14 @@
+{
+  message:
+    CreateServer:
+      angular: [
+        { key: 'data.name' }
+        { key: 'data.ipAddress' }
+      ]
+    GetCountOfServers:
+      angular:
+        []
+    GetServers:
+      angular:
+        []
+}
