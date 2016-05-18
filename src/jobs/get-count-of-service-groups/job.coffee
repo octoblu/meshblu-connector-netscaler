@@ -1,7 +1,8 @@
+_       = require 'lodash'
 request = require 'request'
 http    = require 'http'
 
-class GetServers
+class GetCountOfServiceGroups
   constructor: ({@options}) ->
 
   do: ({}, callback) =>
@@ -11,8 +12,10 @@ class GetServers
       headers:
         'X-NITRO-USER': @options.username
         'X-NITRO-PASS': @options.password
+      qs:
+        count: 'yes'
 
-    request.get '/nitro/v1/config/server', options, (error, response, body) =>
+    request.get '/nitro/v1/config/servicegroup', options, (error, response, body) =>
       return callback error if error?
       code = response.statusCode
       data = body
@@ -34,7 +37,7 @@ class GetServers
         code: code
         status: http.STATUS_CODES[code]
       data:
-        servers: data.server
+        count: _.first(data.servicegroup).__count
     }
 
-module.exports = GetServers
+module.exports = GetCountOfServiceGroups
