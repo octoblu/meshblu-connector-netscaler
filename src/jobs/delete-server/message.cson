@@ -1,0 +1,14 @@
+{
+  type: 'object'
+  title: 'Delete a Server'
+  required: ['metadata', 'data']
+  properties:
+    data:
+      type: 'object'
+      required: ['name']
+      properties:
+        name:
+          type: 'string'
+          title: 'Name'
+          description: 'Name of the server to delete'
+}

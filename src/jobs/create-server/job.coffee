@@ -20,5 +20,4 @@ class CreateServer
       return callback error if error?
       callback null, data: body
 
-
 module.exports = CreateServer
