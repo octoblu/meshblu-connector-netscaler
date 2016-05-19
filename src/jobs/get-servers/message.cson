@@ -1,4 +1,5 @@
 {
   type: 'object'
   title: 'Get Servers'
+  'x-group-name': 'Server'
 }

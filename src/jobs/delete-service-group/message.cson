@@ -1,6 +1,7 @@
 {
   type: 'object'
   title: 'Delete a Service Group'
+  'x-group-name': 'Service Group'
   required: ['metadata', 'data']
   properties:
     data:

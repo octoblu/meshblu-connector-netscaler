@@ -1,4 +1,5 @@
 {
   type: 'object'
   title: 'Get Count of Servers'
+  'x-group-name': 'Server'
 }

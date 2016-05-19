@@ -1,6 +1,7 @@
 {
   type: 'object'
   title: 'Create Service Group'
+  'x-group-name': 'Service Group'
   required: ['metadata', 'data']
   properties:
     data:

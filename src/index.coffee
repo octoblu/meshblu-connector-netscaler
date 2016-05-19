@@ -58,6 +58,7 @@ class NetscalerConnector extends EventEmitter
 
     @emit 'update',
       optionsSchema: CONFIG_SCHEMA
+      type: 'device:netscaler'
       schemas:
         version: '1.0.0'
         message: @_messageSchemaFromJobs @jobs
@@ -87,7 +88,7 @@ class NetscalerConnector extends EventEmitter
 
   _messageSchemaFromJob: (job, key) =>
     message = _.cloneDeep job.message
-    _.set message, 'formSchema.angular', "message.#{key}.angular"
+    _.set message, 'x-form-schema.angular', "message.#{key}.angular"
     _.set message, 'properties.metadata', @_generateMetadata(key)
     return message
 

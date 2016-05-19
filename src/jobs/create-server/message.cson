@@ -1,6 +1,7 @@
 {
   type: 'object'
   title: 'Create Server'
+  'x-group-name': 'Server'
   required: ['metadata', 'data']
   properties:
     data:
@@ -10,8 +11,9 @@
         name:
           type: 'string'
           title: 'Name'
+          description: 'Name of the Server'
         ipAddress:
           type: 'string'
           title: 'IP Adress'
-          description: 'IPv4 or IPv6 address of the server'
+          description: 'IPv4 or IPv6 address of the Server'
 }

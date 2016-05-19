@@ -1,4 +1,5 @@
 {
   type: 'object'
   title: 'Get Count of Service Groups'
+  'x-group-name': 'Service Group'
 }

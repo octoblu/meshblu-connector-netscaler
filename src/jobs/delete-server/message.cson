@@ -1,6 +1,7 @@
 {
   type: 'object'
   title: 'Delete a Server'
+  'x-group-name': 'Server'
   required: ['metadata', 'data']
   properties:
     data:
