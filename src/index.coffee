@@ -62,6 +62,11 @@ class NetscalerConnector extends EventEmitter
       type: 'device:netscaler'
       schemas:
         version: '1.0.0'
+        configure:
+          default:
+            type: 'object'
+            properties:
+              options: CONFIG_SCHEMA
         message: @_messageSchemaFromJobs @jobs
         form:    @_formSchemaFromJobs @jobs
       octoblu: octoblu

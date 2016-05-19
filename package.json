@@ -1,6 +1,6 @@
 {
   "name": "meshblu-connector-netscaler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A mesblu-connector that allows you to connect to a netscaler instance and possibly be managed in Gateblu",
   "main": "index.js",
   "scripts": {
@@ -47,6 +47,6 @@
   },
   "meshbluConnector": {
     "githubSlug": "octoblu/meshblu-connector-netscaler",
-    "schemasUrl": "https://raw.githubusercontent.com/octoblu/meshblu-connector-netscaler/v1.0.0/schemas.json"
+    "schemasUrl": "https://raw.githubusercontent.com/octoblu/meshblu-connector-netscaler/v1.0.1/schemas.json"
   }
 }
