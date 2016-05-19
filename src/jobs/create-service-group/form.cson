@@ -1,0 +1,6 @@
+{
+  angular: [
+    { key: 'data.name' }
+    { key: 'data.serviceType' }
+  ]
+}

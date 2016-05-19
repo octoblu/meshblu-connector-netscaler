@@ -1,0 +1,18 @@
+{
+  type: 'object'
+  title: 'Create Service Group'
+  required: ['metadata', 'data']
+  properties:
+    data:
+      type: 'object'
+      required: ['name', 'serviceType']
+      properties:
+        name:
+          type: 'string'
+          title: 'Name'
+          description: 'Name of the Service Group'
+        serviceType:
+          type: 'string'
+          title: 'Service Type'
+          description: 'Protocol used to exchange data with the service.'
+}

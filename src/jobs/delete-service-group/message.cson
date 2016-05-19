@@ -1,6 +1,6 @@
 {
   type: 'object'
-  title: 'Delete a Server'
+  title: 'Delete a Service Group'
   required: ['metadata', 'data']
   properties:
     data:
@@ -10,5 +10,5 @@
         name:
           type: 'string'
           title: 'Name'
-          description: 'Name of the Server to delete'
+          description: 'Name of the Service Group to delete'
 }
