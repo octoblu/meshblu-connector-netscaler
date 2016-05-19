@@ -38,6 +38,7 @@ class NetscalerConnector extends EventEmitter
     return unless payload?.metadata?
     return unless message?.metadata?.flow?
     {fromNodeId} = message.metadata.flow
+    return @_replyWithError {fromUuid, fromNodeId, error: new Error('Device is not configured')} if _.isEmpty @options
 
     job = @jobs[payload.metadata.jobType]
     return unless job?

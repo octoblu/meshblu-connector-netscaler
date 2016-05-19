@@ -1,0 +1,29 @@
+{
+  type: 'object'
+  title: 'Create Service Group Service Group Member Binding'
+  'x-group-name': 'Service Group Service Group Member Binding'
+  required: ['metadata', 'data']
+  properties:
+    data:
+      type: 'object'
+      required: ['serviceGroupName']
+      properties:
+        serviceGroupName:
+          type: 'string'
+          title: 'Service Group Name'
+          description: 'Name of the Service Group to create the Binding under'
+        ipAddress:
+          type: 'string'
+          title: 'IP Address'
+          description: 'IPv4 or IPv6 address of the Server'
+        port:
+          type: 'integer'
+          title: 'Port Number'
+          description: 'Port Number of the Server (1-65535)'
+          minimum: 1
+          maximum: 65535
+        serverName:
+          type: 'string'
+          title: 'Server Name'
+          description: 'Name of the Server'
+}

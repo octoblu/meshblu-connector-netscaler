@@ -1,0 +1,15 @@
+{
+  type: 'object'
+  title: 'Get Count of Service Group Service Group Member Bindings'
+  'x-group-name': 'Service Group Service Group Member Binding'
+  required: ['metadata', 'data']
+  properties:
+    data:
+      type: 'object'
+      required: ['serviceGroupName']
+      properties:
+        serviceGroupName:
+          type: 'string'
+          title: 'Service Group Name'
+          description: 'Name of the Service Group whose bindings to count'
+}

@@ -1,0 +1,8 @@
+{
+  angular: [
+    { key: 'data.serviceGroupName' }
+    { key: 'data.ipAddress' }
+    { key: 'data.port' }
+    { key: 'data.serverName' }
+  ]
+}

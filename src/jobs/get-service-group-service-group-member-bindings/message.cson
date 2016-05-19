@@ -1,0 +1,14 @@
+{
+  type: 'object'
+  title: 'Get Service Group Service Group Member Bindings'
+  'x-group-name': 'Service Group Service Group Member Binding'
+  properties:
+    data:
+      type: 'object'
+      required: ['name']
+      properties:
+        serviceGroupName:
+          type: 'string'
+          title: 'Service Group Name'
+          description: 'Name of the Service Group whose bindings to retrieve'
+}
