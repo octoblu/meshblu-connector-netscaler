@@ -1,18 +1,23 @@
-request = require 'request'
+debug   = require('debug')('meshblu-connector-netscaler:get-service-group-service-group-member-bindings')
 http    = require 'http'
+request = require 'request'
 
-class DeleteServer
-  constructor: ({@options}) ->
+class GetServiceGroupServiceGroupMemberBindings
+  constructor: ({connector}) ->
+    {@options} = connector
 
   do: ({data}, callback) =>
     options =
+      uri: "/nitro/v1/config/servicegroup_servicegroupmember_binding/#{data.serviceGroupName}"
       baseUrl: @options.hostAddress
+      json: true
       headers:
         'X-NITRO-USER': @options.username
         'X-NITRO-PASS': @options.password
-      json: true
 
-    request.delete "/nitro/v1/config/server/#{data.name}", options, (error, response, body) =>
+    debug 'GetServiceGroupServiceGroupMemberBinding', options
+
+    request.get options, (error, response, body) =>
       return callback error if error?
       code = response.statusCode
       data = body
@@ -33,7 +38,8 @@ class DeleteServer
       metadata:
         code: code
         status: http.STATUS_CODES[code]
-      data: data
+      data:
+        serviceGroupServiceGroupMemberBindings: data.servicegroup_servicegroupmember_binding ? []
     }
 
-module.exports = DeleteServer
+module.exports = GetServiceGroupServiceGroupMemberBindings

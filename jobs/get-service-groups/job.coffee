@@ -1,23 +1,19 @@
 request = require 'request'
 http    = require 'http'
 
-class CreateServer
-  constructor: ({@options}) ->
+class GetServiceGroups
+  constructor: ({connector}) ->
+    {@options} = connector
 
-  do: ({data}, callback) =>
+  do: ({}, callback) =>
     options =
       baseUrl: @options.hostAddress
+      json: true
       headers:
-        'Content-Type': 'application/vnd.com.citrix.netscaler.server+json'
         'X-NITRO-USER': @options.username
         'X-NITRO-PASS': @options.password
-      json:
-        server:
-          name:      data.name
-          ipaddress: data.ipAddress
-          domain:    data.domain
 
-    request.post '/nitro/v1/config/server', options, (error, response, body) =>
+    request.get '/nitro/v1/config/servicegroup', options, (error, response, body) =>
       return callback error if error?
       code = response.statusCode
       data = body
@@ -38,7 +34,8 @@ class CreateServer
       metadata:
         code: code
         status: http.STATUS_CODES[code]
-      data: data
+      data:
+        servicegroups: data.servicegroup
     }
 
-module.exports = CreateServer
+module.exports = GetServiceGroups

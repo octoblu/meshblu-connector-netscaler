@@ -1,1 +1,590 @@
-{}
+{
+  "schemas": {
+    "configure": {
+      "Default": {
+        "properties": {
+          "options": {
+            "properties": {
+              "hostAddress": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "password": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "username": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "username",
+              "password",
+              "hostAddress"
+            ],
+            "type": "object"
+          }
+        },
+        "title": "Netscaler Info",
+        "type": "object"
+      }
+    },
+    "form": {
+      "message": {
+        "CreateServer": {
+          "angular": [
+            {
+              "key": "data.name"
+            },
+            {
+              "key": "data.ipAddress"
+            }
+          ]
+        },
+        "CreateServiceGroup": {
+          "angular": [
+            {
+              "key": "data.name"
+            },
+            {
+              "key": "data.serviceType"
+            }
+          ]
+        },
+        "CreateServiceGroupServiceGroupMemberBinding": {
+          "angular": [
+            {
+              "key": "data.serviceGroupName"
+            },
+            {
+              "key": "data.ipAddress"
+            },
+            {
+              "key": "data.port"
+            },
+            {
+              "key": "data.serverName"
+            }
+          ]
+        },
+        "DeleteServer": {
+          "angular": [
+            {
+              "key": "data.name"
+            }
+          ]
+        },
+        "DeleteServiceGroup": {
+          "angular": [
+            {
+              "key": "data.name"
+            }
+          ]
+        },
+        "GetCountOfServers": {
+          "angular": [
+          ]
+        },
+        "GetCountOfServiceGroupServiceGroupMemberBindings": {
+          "angular": [
+            {
+              "key": "data.serviceGroupName"
+            }
+          ]
+        },
+        "GetCountOfServiceGroups": {
+          "angular": [
+          ]
+        },
+        "GetServers": {
+          "angular": [
+          ]
+        },
+        "GetServiceGroupServiceGroupMemberBindings": {
+          "angular": [
+            {
+              "key": "data.serviceGroupName"
+            }
+          ]
+        },
+        "GetServiceGroups": {
+          "angular": [
+          ]
+        }
+      }
+    },
+    "message": {
+      "CreateServer": {
+        "properties": {
+          "data": {
+            "properties": {
+              "ipAddress": {
+                "description": "IPv4 or IPv6 address of the Server",
+                "title": "IP Address",
+                "type": "string"
+              },
+              "name": {
+                "description": "Name of the Server",
+                "title": "Name",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "ipAddress"
+            ],
+            "type": "object"
+          },
+          "metadata": {
+            "properties": {
+              "jobType": {
+                "default": "CreateServer",
+                "enum": [
+                  "CreateServer"
+                ],
+                "type": "string"
+              },
+              "respondTo": {
+              }
+            },
+            "required": [
+              "jobType"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "metadata",
+          "data"
+        ],
+        "title": "Create Server",
+        "type": "object",
+        "x-form-schema": {
+          "angular": "message.CreateServer.angular"
+        },
+        "x-group-name": "Server",
+        "x-response-schema": "CreateServer"
+      },
+      "CreateServiceGroup": {
+        "properties": {
+          "data": {
+            "properties": {
+              "name": {
+                "description": "Name of the Service Group",
+                "title": "Name",
+                "type": "string"
+              },
+              "serviceType": {
+                "description": "Protocol used to exchange data with the service.",
+                "title": "Service Type",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "serviceType"
+            ],
+            "type": "object"
+          },
+          "metadata": {
+            "properties": {
+              "jobType": {
+                "default": "CreateServiceGroup",
+                "enum": [
+                  "CreateServiceGroup"
+                ],
+                "type": "string"
+              },
+              "respondTo": {
+              }
+            },
+            "required": [
+              "jobType"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "metadata",
+          "data"
+        ],
+        "title": "Create Service Group",
+        "type": "object",
+        "x-form-schema": {
+          "angular": "message.CreateServiceGroup.angular"
+        },
+        "x-group-name": "Service Group",
+        "x-response-schema": "CreateServiceGroup"
+      },
+      "CreateServiceGroupServiceGroupMemberBinding": {
+        "properties": {
+          "data": {
+            "properties": {
+              "ipAddress": {
+                "description": "IPv4 or IPv6 address of the Server",
+                "title": "IP Address",
+                "type": "string"
+              },
+              "port": {
+                "description": "Port Number of the Server (1-65535)",
+                "maximum": 65535,
+                "minimum": 1,
+                "title": "Port Number",
+                "type": "integer"
+              },
+              "serverName": {
+                "description": "Name of the Server",
+                "title": "Server Name",
+                "type": "string"
+              },
+              "serviceGroupName": {
+                "description": "Name of the Service Group to create the Binding under",
+                "title": "Service Group Name",
+                "type": "string"
+              }
+            },
+            "required": [
+              "serviceGroupName"
+            ],
+            "type": "object"
+          },
+          "metadata": {
+            "properties": {
+              "jobType": {
+                "default": "CreateServiceGroupServiceGroupMemberBinding",
+                "enum": [
+                  "CreateServiceGroupServiceGroupMemberBinding"
+                ],
+                "type": "string"
+              },
+              "respondTo": {
+              }
+            },
+            "required": [
+              "jobType"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "metadata",
+          "data"
+        ],
+        "title": "Create Service Group Service Group Member Binding",
+        "type": "object",
+        "x-form-schema": {
+          "angular": "message.CreateServiceGroupServiceGroupMemberBinding.angular"
+        },
+        "x-group-name": "Service Group Service Group Member Binding",
+        "x-response-schema": "CreateServiceGroupServiceGroupMemberBinding"
+      },
+      "DeleteServer": {
+        "properties": {
+          "data": {
+            "properties": {
+              "name": {
+                "description": "Name of the Server to delete",
+                "title": "Name",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "metadata": {
+            "properties": {
+              "jobType": {
+                "default": "DeleteServer",
+                "enum": [
+                  "DeleteServer"
+                ],
+                "type": "string"
+              },
+              "respondTo": {
+              }
+            },
+            "required": [
+              "jobType"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "metadata",
+          "data"
+        ],
+        "title": "Delete a Server",
+        "type": "object",
+        "x-form-schema": {
+          "angular": "message.DeleteServer.angular"
+        },
+        "x-group-name": "Server",
+        "x-response-schema": "DeleteServer"
+      },
+      "DeleteServiceGroup": {
+        "properties": {
+          "data": {
+            "properties": {
+              "name": {
+                "description": "Name of the Service Group to delete",
+                "title": "Name",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "metadata": {
+            "properties": {
+              "jobType": {
+                "default": "DeleteServiceGroup",
+                "enum": [
+                  "DeleteServiceGroup"
+                ],
+                "type": "string"
+              },
+              "respondTo": {
+              }
+            },
+            "required": [
+              "jobType"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "metadata",
+          "data"
+        ],
+        "title": "Delete a Service Group",
+        "type": "object",
+        "x-form-schema": {
+          "angular": "message.DeleteServiceGroup.angular"
+        },
+        "x-group-name": "Service Group",
+        "x-response-schema": "DeleteServiceGroup"
+      },
+      "GetCountOfServers": {
+        "properties": {
+          "metadata": {
+            "properties": {
+              "jobType": {
+                "default": "GetCountOfServers",
+                "enum": [
+                  "GetCountOfServers"
+                ],
+                "type": "string"
+              },
+              "respondTo": {
+              }
+            },
+            "required": [
+              "jobType"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "metadata"
+        ],
+        "title": "Get Count of Servers",
+        "type": "object",
+        "x-form-schema": {
+          "angular": "message.GetCountOfServers.angular"
+        },
+        "x-group-name": "Server",
+        "x-response-schema": "GetCountOfServers"
+      },
+      "GetCountOfServiceGroupServiceGroupMemberBindings": {
+        "properties": {
+          "data": {
+            "properties": {
+              "serviceGroupName": {
+                "description": "Name of the Service Group whose bindings to count",
+                "title": "Service Group Name",
+                "type": "string"
+              }
+            },
+            "required": [
+              "serviceGroupName"
+            ],
+            "type": "object"
+          },
+          "metadata": {
+            "properties": {
+              "jobType": {
+                "default": "GetCountOfServiceGroupServiceGroupMemberBindings",
+                "enum": [
+                  "GetCountOfServiceGroupServiceGroupMemberBindings"
+                ],
+                "type": "string"
+              },
+              "respondTo": {
+              }
+            },
+            "required": [
+              "jobType"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "metadata",
+          "data"
+        ],
+        "title": "Get Count of Service Group Service Group Member Bindings",
+        "type": "object",
+        "x-form-schema": {
+          "angular": "message.GetCountOfServiceGroupServiceGroupMemberBindings.angular"
+        },
+        "x-group-name": "Service Group Service Group Member Binding",
+        "x-response-schema": "GetCountOfServiceGroupServiceGroupMemberBindings"
+      },
+      "GetCountOfServiceGroups": {
+        "properties": {
+          "metadata": {
+            "properties": {
+              "jobType": {
+                "default": "GetCountOfServiceGroups",
+                "enum": [
+                  "GetCountOfServiceGroups"
+                ],
+                "type": "string"
+              },
+              "respondTo": {
+              }
+            },
+            "required": [
+              "jobType"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "metadata"
+        ],
+        "title": "Get Count of Service Groups",
+        "type": "object",
+        "x-form-schema": {
+          "angular": "message.GetCountOfServiceGroups.angular"
+        },
+        "x-group-name": "Service Group",
+        "x-response-schema": "GetCountOfServiceGroups"
+      },
+      "GetServers": {
+        "properties": {
+          "metadata": {
+            "properties": {
+              "jobType": {
+                "default": "GetServers",
+                "enum": [
+                  "GetServers"
+                ],
+                "type": "string"
+              },
+              "respondTo": {
+              }
+            },
+            "required": [
+              "jobType"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "metadata"
+        ],
+        "title": "Get Servers",
+        "type": "object",
+        "x-form-schema": {
+          "angular": "message.GetServers.angular"
+        },
+        "x-group-name": "Server",
+        "x-response-schema": "GetServers"
+      },
+      "GetServiceGroupServiceGroupMemberBindings": {
+        "properties": {
+          "data": {
+            "properties": {
+              "serviceGroupName": {
+                "description": "Name of the Service Group whose bindings to retrieve",
+                "title": "Service Group Name",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "metadata": {
+            "properties": {
+              "jobType": {
+                "default": "GetServiceGroupServiceGroupMemberBindings",
+                "enum": [
+                  "GetServiceGroupServiceGroupMemberBindings"
+                ],
+                "type": "string"
+              },
+              "respondTo": {
+              }
+            },
+            "required": [
+              "jobType"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "metadata"
+        ],
+        "title": "Get Service Group Service Group Member Bindings",
+        "type": "object",
+        "x-form-schema": {
+          "angular": "message.GetServiceGroupServiceGroupMemberBindings.angular"
+        },
+        "x-group-name": "Service Group Service Group Member Binding",
+        "x-response-schema": "GetServiceGroupServiceGroupMemberBindings"
+      },
+      "GetServiceGroups": {
+        "properties": {
+          "metadata": {
+            "properties": {
+              "jobType": {
+                "default": "GetServiceGroups",
+                "enum": [
+                  "GetServiceGroups"
+                ],
+                "type": "string"
+              },
+              "respondTo": {
+              }
+            },
+            "required": [
+              "jobType"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "metadata"
+        ],
+        "title": "Get Service Groups",
+        "type": "object",
+        "x-form-schema": {
+          "angular": "message.GetServiceGroups.angular"
+        },
+        "x-group-name": "Service Group",
+        "x-response-schema": "GetServiceGroups"
+      }
+    },
+    "response": {
+    },
+    "version": "2.0.0"
+  }
+}

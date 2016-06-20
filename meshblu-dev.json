@@ -1,0 +1,8 @@
+{
+  "uuid": "90e4a323-2450-4589-9658-602f6990e423",
+  "token": "86b7c3b4b5d843dbfe4011e1b5068027c26db52d",
+  "server": "meshblu.octoblu.dev",
+  "port": "80",
+  "protocol": "http",
+  "type": "device:netscaler"
+}

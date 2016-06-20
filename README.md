@@ -3,6 +3,7 @@
 [![Dependency status](http://img.shields.io/david/octoblu/meshblu-connector-netscaler.svg?style=flat)](https://david-dm.org/octoblu/meshblu-connector-netscaler)
 [![devDependency Status](http://img.shields.io/david/dev/octoblu/meshblu-connector-netscaler.svg?style=flat)](https://david-dm.org/octoblu/meshblu-connector-netscaler#info=devDependencies)
 [![Build Status](http://img.shields.io/travis/octoblu/meshblu-connector-netscaler.svg?style=flat&branch=master)](https://travis-ci.org/octoblu/meshblu-connector-netscaler)
+[![Slack Status](http://community-slack.octoblu.com/badge.svg)](http://community-slack.octoblu.com)
 
 [![NPM](https://nodei.co/npm/meshblu-connector-netscaler.svg?style=flat)](https://npmjs.org/package/meshblu-connector-netscaler)
 

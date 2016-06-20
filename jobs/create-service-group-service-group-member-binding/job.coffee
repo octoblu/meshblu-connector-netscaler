@@ -3,7 +3,8 @@ _       = require 'lodash'
 request = require 'request'
 
 class CreateServiceGroupServiceGroupMemberBinding
-  constructor: ({@options}) ->
+  constructor: ({connector}) ->
+    {@options} = connector
 
   do: ({data}, callback) =>
     data = _.pickBy data

@@ -1,22 +1,19 @@
-_       = require 'lodash'
 request = require 'request'
 http    = require 'http'
 
-class GetCountOfServiceGroupServiceMemberBindings
-  constructor: ({@options}) ->
+class DeleteServiceGroup
+  constructor: ({connector}) ->
+    {@options} = connector
 
   do: ({data}, callback) =>
     options =
-      uri: "/nitro/v1/config/servicegroup_servicegroupmember_binding/#{data.serviceGroupName}"
       baseUrl: @options.hostAddress
-      json: true
       headers:
         'X-NITRO-USER': @options.username
         'X-NITRO-PASS': @options.password
-      qs:
-        count: 'yes'
+      json: true
 
-    request.get options, (error, response, body) =>
+    request.delete "/nitro/v1/config/servicegroup/#{data.name}", options, (error, response, body) =>
       return callback error if error?
       code = response.statusCode
       data = body
@@ -37,8 +34,7 @@ class GetCountOfServiceGroupServiceMemberBindings
       metadata:
         code: code
         status: http.STATUS_CODES[code]
-      data:
-        count: _.first(data.servicegroup_servicegroupmember_binding).__count
+      data: data
     }
 
-module.exports = GetCountOfServiceGroupServiceMemberBindings
+module.exports = DeleteServiceGroup

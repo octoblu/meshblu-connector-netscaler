@@ -1,21 +1,19 @@
-_       = require 'lodash'
 request = require 'request'
 http    = require 'http'
 
-class GetCountOfServiceGroups
-  constructor: ({@options}) ->
+class DeleteServer
+  constructor: ({connector}) ->
+    {@options} = connector
 
-  do: ({}, callback) =>
+  do: ({data}, callback) =>
     options =
       baseUrl: @options.hostAddress
-      json: true
       headers:
         'X-NITRO-USER': @options.username
         'X-NITRO-PASS': @options.password
-      qs:
-        count: 'yes'
+      json: true
 
-    request.get '/nitro/v1/config/servicegroup', options, (error, response, body) =>
+    request.delete "/nitro/v1/config/server/#{data.name}", options, (error, response, body) =>
       return callback error if error?
       code = response.statusCode
       data = body
@@ -36,8 +34,7 @@ class GetCountOfServiceGroups
       metadata:
         code: code
         status: http.STATUS_CODES[code]
-      data:
-        count: _.first(data.servicegroup).__count
+      data: data
     }
 
-module.exports = GetCountOfServiceGroups
+module.exports = DeleteServer

@@ -1,18 +1,23 @@
 request = require 'request'
 http    = require 'http'
 
-class DeleteServiceGroup
-  constructor: ({@options}) ->
+class CreateServiceGroup
+  constructor: ({connector}) ->
+    {@options} = connector
 
   do: ({data}, callback) =>
     options =
       baseUrl: @options.hostAddress
       headers:
+        'Content-Type': 'application/vnd.com.citrix.netscaler.servicegroup+json'
         'X-NITRO-USER': @options.username
         'X-NITRO-PASS': @options.password
-      json: true
+      json:
+        servicegroup:
+          servicegroupname: data.name
+          servicetype:      data.serviceType
 
-    request.delete "/nitro/v1/config/servicegroup/#{data.name}", options, (error, response, body) =>
+    request.post '/nitro/v1/config/servicegroup', options, (error, response, body) =>
       return callback error if error?
       code = response.statusCode
       data = body
@@ -36,4 +41,4 @@ class DeleteServiceGroup
       data: data
     }
 
-module.exports = DeleteServiceGroup
+module.exports = CreateServiceGroup

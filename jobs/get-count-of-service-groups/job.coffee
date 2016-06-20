@@ -1,22 +1,22 @@
-debug   = require('debug')('meshblu-connector-netscaler:get-service-group-service-group-member-bindings')
-http    = require 'http'
+_       = require 'lodash'
 request = require 'request'
+http    = require 'http'
 
-class GetServiceGroupServiceGroupMemberBindings
-  constructor: ({@options}) ->
+class GetCountOfServiceGroups
+  constructor: ({connector}) ->
+    {@options} = connector
 
-  do: ({data}, callback) =>
+  do: ({}, callback) =>
     options =
-      uri: "/nitro/v1/config/servicegroup_servicegroupmember_binding/#{data.serviceGroupName}"
       baseUrl: @options.hostAddress
       json: true
       headers:
         'X-NITRO-USER': @options.username
         'X-NITRO-PASS': @options.password
+      qs:
+        count: 'yes'
 
-    debug 'GetServiceGroupServiceGroupMemberBinding', options
-
-    request.get options, (error, response, body) =>
+    request.get '/nitro/v1/config/servicegroup', options, (error, response, body) =>
       return callback error if error?
       code = response.statusCode
       data = body
@@ -38,7 +38,7 @@ class GetServiceGroupServiceGroupMemberBindings
         code: code
         status: http.STATUS_CODES[code]
       data:
-        serviceGroupServiceGroupMemberBindings: data.servicegroup_servicegroupmember_binding ? []
+        count: _.first(data.servicegroup).__count
     }
 
-module.exports = GetServiceGroupServiceGroupMemberBindings
+module.exports = GetCountOfServiceGroups

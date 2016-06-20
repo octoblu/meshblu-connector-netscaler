@@ -27,5 +27,4 @@ build/Release
 node_modules
 deploy
 meshblu.json
-meshblu-prod.json
-meshblu-dev.json
+schemas.json
