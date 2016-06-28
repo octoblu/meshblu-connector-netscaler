@@ -7,5 +7,11 @@ properties:
     properties:
       authSuccessCount:
         type: 'integer'
+      authSuccessRate:
+        type: 'number'
+        description: 'Rate (/s) counter for successful auth'
       authFailureCount:
         type: 'integer'
+      authFailureRate:
+        type: 'number'
+        description: 'Rate (/s) counter for failed auth'

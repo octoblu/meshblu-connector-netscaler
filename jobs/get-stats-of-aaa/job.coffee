@@ -35,8 +35,10 @@ class GetStatsOfAAA
         code: code
         status: http.STATUS_CODES[code]
       data:
-        authSuccessCount: data.aaa.aaaauthsuccess
-        authFailureCount: data.aaa.aaaauthfail
+        authSuccessCount: parseFloat data.aaa.aaaauthsuccess
+        authSuccessRate:  parseFloat data.aaa.aaaauthsuccessrate
+        authFailureCount: parseFloat data.aaa.aaaauthfail
+        authFailureRate:  parseFloat data.aaa.aaaauthfailrate
     }
 
 module.exports = GetStatsOfAAA
