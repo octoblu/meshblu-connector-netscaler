@@ -1,0 +1,11 @@
+title: 'Stats for AAA'
+type: 'object'
+properties:
+  data:
+    type: 'object'
+    required: ['authSuccessCount', 'authFailureCount']
+    properties:
+      authSuccessCount:
+        type: 'integer'
+      authFailureCount:
+        type: 'integer'

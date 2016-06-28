@@ -1,0 +1,5 @@
+{
+  type: 'object'
+  title: 'Get Stats for AAA'
+  'x-group-name': 'AAA'
+}

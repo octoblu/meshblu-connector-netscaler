@@ -1,3 +1,5 @@
 angular: [
-  { key: "options.example" }
+  { key: "options.username" }
+  { key: "options.password", "type": "password" }
+  { key: "options.hostAddress" }
 ]
