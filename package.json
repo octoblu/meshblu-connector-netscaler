@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "meshblu-connector-runner",
-    "test": "istanbul cover _mocha -- -R spec --require coffee-coverage/register-istanbul && mocha --reporter json > coverage/mocha.json",
+    "test": "mocha",
     "generate:package": "meshblu-connector-packager",
-    "generate:schema": "meshblu-connector-schema-generator > schemas.json"
+    "generate:schema": "meshblu-connector-schema-generator > schemas.json",
+    "coverage": "nyc npm test",
+    "mocha:json": "env NPM_ENV=test mocha --reporter json > coverage/mocha.json",
+    "test:watch": "mocha -w -R mocha-multi --reporter-options spec=-,mocha-osx-reporter=-"
   },
   "repository": {
     "type": "git",
@@ -21,10 +24,11 @@
   "homepage": "https://github.com/octoblu/meshblu-netscaler-connector#readme",
   "devDependencies": {
     "chai": "^3.5.0",
-    "coffee-coverage": "^1.0.1",
     "debug": "^2.2.0",
-    "istanbul": "^0.4.5",
     "mocha": "^2.5.3",
+    "mocha-multi": "^0.9.1",
+    "mocha-osx-reporter": "^0.1.2",
+    "nyc": "^8.3.0",
     "shmock": "^0.8.1",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0"
@@ -49,5 +53,16 @@
   },
   "meshbluConnector": {
     "githubSlug": "octoblu/meshblu-connector-netscaler"
+  },
+  "nyc": {
+    "cache": true,
+    "reporter": [
+      "text-summary",
+      "lcov",
+      "json"
+    ],
+    "extension": [
+      ".coffee"
+    ]
   }
 }
